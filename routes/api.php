@@ -20,6 +20,6 @@ Route::prefix('auth')
     ->group(function () {
 
         Route::post('login', 'AuthController@login');
-
+        Route::post('register', 'AuthController@register');
 
     });

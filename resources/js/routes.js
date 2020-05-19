@@ -6,6 +6,7 @@ Vue.use(VueRouter);
 const GuestLayout = () => import('./views/guest/layouts/GuestLayout');
 const GuestLogin = () => import('./views/guest/layouts/GuestLogin');
 const GuestForbidden = () => import('./views/guest/layouts/GuestForbidden');
+const GuestRegister = () => import('./views/guest/layouts/GuestRegister');
 
 const UnitLayout = () => import('./views/admin/layouts/UnitLayout');
 const AdminIndex = () => import('./views/admin/pages/dashboard/Index');
@@ -16,21 +17,26 @@ const router = new VueRouter({
     routes: [
 
         {
-            path: '/login',
+            path: '',
             component: GuestLayout,
             meta: {
                 auth: false
             },
             children: [
                 {
-                    path:'',
+                    path:'/login',
                     name:'login',
                     component: GuestLogin
                 },
                 {
-                    path:'admin/403',
+                    path:'/forbidden',
                     name:'forbidden',
                     component: GuestForbidden
+                },
+                {
+                    path:'/register',
+                    name:'register',
+                    component: GuestRegister
                 },
             ]
         },

@@ -10,15 +10,9 @@ use Illuminate\Http\Request;
 class AuthController extends Controller
 {
 
-    public function login(Request $request){
+    public function login(Request $request) {
 
         $attributes = $request->only(['credentials.email','credentials.password']);
-        /*$attributes = collect($request->all());
-
-        $user = User::create([
-            'email'    => $attributes->get('credentials')['email'] ,
-            'password' => bcrypt($attributes->get('credentials')['password']),
-        ]);*/
 
         $rules = [
             'email' => 'required|email',
@@ -30,6 +24,17 @@ class AuthController extends Controller
         }
 
         return response()->json(['status' => 'success'], 200)->header('Authorization', $token);
+    }
+
+    public function register(Request $request) {
+        $attributes = $request->only(['credentials.email','credentials.password']);
+
+        $user = User::create([
+            'email'    => $attributes['credentials']['email'] ,
+            'password' => bcrypt($attributes['credentials']['password']),
+        ]);
+
+        return response()->json(['status' => 'success'], 200);
     }
 
 }

@@ -4,8 +4,8 @@
             <div class="row">
                 <div class="col-7">
                     <div class="text-primary p-4">
-                        <h5 class="text-primary">Welcome Back !</h5>
-                        <p>Sign in to continue to Skote.</p>
+                        <h5 class="text-primary">Free Register</h5>
+                        <p>Get your free Skote account now.</p>
                     </div>
                 </div>
                 <div class="col-5 align-self-end">
@@ -24,32 +24,31 @@
                 </a>
             </div>
 
-            <b-form class="p-2" @submit.prevent="login">
-                <slot />
-                <b-form-group id="input-group-1" label="Email" label-for="input-1">
-                    <b-form-input id="input-1" name="email" type="text" v-model="email" placeholder="Enter email"></b-form-input>
+            <b-form class="p-2" @submit.prevent="register">
+                <b-form-group id="fullname-group" label="Email" label-for="email">
+                    <b-form-input id="email" v-model="email" type="email" placeholder="Enter email"></b-form-input>
                 </b-form-group>
 
-                <b-form-group id="input-group-2" label="Password" label-for="input-2">
+                <b-form-group id="password-group" label="Password" label-for="password">
                     <b-form-input
-                        id="input-2"
-                        name="password"
-                        type="password"
+                        id="password"
                         v-model="password"
+                        type="password"
                         placeholder="Enter password"
                     ></b-form-input>
                 </b-form-group>
-                <div class="custom-control custom-checkbox">
-                    <input id="customControlInline" type="checkbox" class="custom-control-input" />
-                    <label class="custom-control-label" for="customControlInline">Remember me</label>
-                </div>
-                <div class="mt-3">
-                    <b-button type="submit" variant="primary" class="btn-block">Log In</b-button>
+
+                <div class="mt-4">
+                    <b-button type="submit" variant="primary" class="btn-block">Register</b-button>
                 </div>
                 <div class="mt-4 text-center">
-                    <a href="/reset/password" class="text-muted">
-                        <i class="mdi mdi-lock mr-1"></i> Forgot your password?
-                    </a>
+                    <p class="mb-0">
+                        By registering you agree to the Skote
+                        <a
+                            href="javascript: void(0);"
+                            class="text-primary"
+                        >Terms of Use</a>
+                    </p>
                 </div>
             </b-form>
 
@@ -57,16 +56,17 @@
 
         <div class="mt-5 text-center">
             <p>
-                Hesabım Yok ?
+                Hesabın var mı ?
                 <a
-                    href="/register"
+                    href="/login"
                     class="font-weight-medium text-primary"
-                >Kayıt Ol</a>
+                >Giriş Yap</a>
             </p>
             <guest-author></guest-author>
         </div>
 
     </div>
+
 </template>
 
 <script>
@@ -83,7 +83,7 @@
             }
         },
         methods: {
-            login() {
+            register() {
                 const credentials = {
                     email: this.email,
                     password: this.password
@@ -93,7 +93,7 @@
                     credentials: credentials
                 };
 
-                this.$auth.login({
+                this.$auth.register({
                     data,
                     success: function () {
                         console.log("test");
