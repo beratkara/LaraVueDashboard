@@ -15,3 +15,7 @@ php artisan migrate:fresh --seed
 npm run watch
 
 php artisan serve
+
+![Screenshot](login.png)
+
+![Screenshot](dashboard.png)
