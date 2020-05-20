@@ -203,10 +203,21 @@
         },
         methods: {
             toggleMenu() {
-                this.$parent.toggleMenu();
-            },
-            toggleRightSidebar() {
-                this.$parent.toggleRightSidebar();
+                document.body.classList.toggle("sidebar-enable");
+                if (window.screen.width >= 992) {
+                    // eslint-disable-next-line no-unused-vars
+                    this.$router.afterEach((routeTo, routeFrom) => {
+                        document.body.classList.remove("sidebar-enable");
+                        document.body.classList.remove("vertical-collpsed");
+                    });
+                    document.body.classList.toggle("vertical-collpsed");
+                } else {
+                    // eslint-disable-next-line no-unused-vars
+                    this.$router.afterEach((routeTo, routeFrom) => {
+                        document.body.classList.remove("sidebar-enable");
+                    });
+                    document.body.classList.remove("vertical-collpsed");
+                }
             },
             initFullScreen() {
                 document.body.classList.toggle("fullscreen-enable");
