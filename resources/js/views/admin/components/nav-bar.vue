@@ -38,20 +38,15 @@
 
         <b-dropdown variant="black" right toggle-class="header-item">
           <template v-slot:button-content>
-            <img class src="/images/flags/us.jpg" alt="Header Language" height="16" />
+            <img class :src="'/images/flags/' + currentLocales + '.jpg'" alt="Header Language" height="16" />
           </template>
 
-          <!-- item-->
-          <a href="javascript:void(0);" class="dropdown-item notify-item">
-            <img src="/images/flags/spain.jpg" alt="user-image" class="mr-1" height="12" />
-            <span class="align-middle">Spanish</span>
-          </a>
-
-          <!-- item-->
-          <a href="javascript:void(0);" class="dropdown-item notify-item">
-            <img src="/images/flags/germany.jpg" alt="user-image" class="mr-1" height="12" />
-            <span class="align-middle">German</span>
-          </a>
+            <template v-for="(item, index) in availableLocales">
+                <div class="dropdown-item notify-item" @click="setLanguage(item)">
+                    <img :src="'/images/flags/' + item + '.jpg'" alt="user-image" class="mr-1" height="12" />
+                    <span class="align-middle">{{ $t("common." + item) }}</span>
+                </div>
+            </template>
 
         </b-dropdown>
 
@@ -200,6 +195,12 @@
      */
     export default {
         components: { simplebar },
+        data() {
+            return {
+                currentLocales: null,
+                availableLocales: null,
+            }
+        },
         methods: {
             toggleMenu() {
                 this.$parent.toggleMenu();
@@ -233,7 +234,15 @@
                         document.webkitCancelFullScreen();
                     }
                 }
-            }
+            },
+            setLanguage(lang) {
+                this.$i18n.locale = lang;
+            },
+        },
+        created() {
+            this.currentLocales = this.$i18n.locale;
+            this.availableLocales = this.$i18n.availableLocales;
+            console.log(this.$i18n);
         }
     };
 </script>
