@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-
     public function login(Request $request) {
 
         $attributes = $request->only(['credentials.email','credentials.password']);
@@ -35,6 +34,11 @@ class AuthController extends Controller
         ]);
 
         return response()->json(['status' => 'success'], 200);
+    }
+
+    public function logout(Request $request) {
+        auth()->logout();
+        return response()->json(['message' => 'Successfully logged out'], 200);
     }
 
 }

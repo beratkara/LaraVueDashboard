@@ -10,6 +10,7 @@ const GuestRegister = () => import('./views/guest/layouts/GuestRegister');
 
 const UnitLayout = () => import('./views/admin/layouts/UnitLayout');
 const AdminIndex = () => import('./views/admin/pages/dashboard/Index');
+const AdminLogout = () => import('./views/admin/pages/logout');
 
 const router = new VueRouter({
     mode: 'history',
@@ -22,6 +23,7 @@ const router = new VueRouter({
             meta: {
                 auth: false
             },
+            redirect: '/login',
             children: [
                 {
                     path:'/login',
@@ -53,7 +55,20 @@ const router = new VueRouter({
                     name:'admin.dashboard',
                     component: AdminIndex,
                 },
+                {
+                    path:'/logout',
+                    name:'admin.logout',
+                    component: AdminLogout
+                },
             ]
+        },
+
+        {
+            path: '*',
+            redirect: '/dashboard',
+            meta: {
+                auth: true
+            },
         },
 
     ],

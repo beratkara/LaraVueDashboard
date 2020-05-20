@@ -237,12 +237,12 @@
             },
             setLanguage(lang) {
                 this.$i18n.locale = lang;
+                this.currentLocales = this.$i18n.locale;
             },
         },
         created() {
             this.currentLocales = this.$i18n.locale;
             this.availableLocales = this.$i18n.availableLocales;
-            console.log(this.$i18n);
         }
     };
 </script>
