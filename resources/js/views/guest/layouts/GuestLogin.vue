@@ -96,7 +96,7 @@
                 this.$auth.login({
                     data,
                     success: function () {
-                        console.log("test");
+
                     },
                     rememberMe: true,
                     fetchUser: true
