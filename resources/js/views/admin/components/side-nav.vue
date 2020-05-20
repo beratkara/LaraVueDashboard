@@ -9,22 +9,22 @@
         <template v-for="(link, index) in mainMenu">
 
 
-            <li class="menu-title" v-show="link.hasOwnProperty('seperator')">{{ link.seperator }}</li>
+            <li class="menu-title" v-if="link.hasOwnProperty('seperator')">{{ $t("menu." + link.seperator) }}</li>
 
-            <li v-show="link.hasOwnProperty('invoke')">
-                <router-link v-if="link.hasOwnProperty('children')" to="#" class="has-arrow">
+            <li v-else>
+                <router-link v-if="link.hasOwnProperty('children')" to="" class="has-arrow">
                     <i :class="link.icon"></i>
-                    <span>{{ link.title }}</span>
+                    <span>{{ $t("menu." + link.name) }}</span>
                 </router-link>
                 <router-link v-else :to="{ name: link.invoke }">
                     <i :class="link.icon"></i>
-                    <span>{{ link.title }}</span>
+                    <span>{{ $t("menu." + link.name) }}</span>
                 </router-link>
-                <ul class="sub-menu" aria-expanded="false" v-show="link.children">
+                <ul class="sub-menu" aria-expanded="false" v-if="link.children">
                 <template v-for="(children, childIndex) in link.children">
                     <li>
                         <router-link :to="{ name: children.invoke }">
-                            <span>{{ children.title }}</span>
+                            <span class="side-nav-link-ref">{{ $t("menu." + children.name) }}</span>
                         </router-link>
                     </li>
                 </template>
@@ -32,77 +32,6 @@
             </li>
 
         </template>
-
-<!--        <li class="menu-title">Menu</li>-->
-
-<!--        <li>-->
-<!--            <router-link :to="{ path: 'dashboard' }">-->
-<!--                <i class="bx bx-home-circle"></i>-->
-<!--                <span>Dashboards</span>-->
-<!--            </router-link>-->
-<!--        </li>-->
-
-<!--        <li>-->
-<!--            <a href="javascript: void(0);" class="has-arrow">-->
-<!--                <i class="bx bx-layout"></i>-->
-<!--                <span>Layouts</span>-->
-<!--            </a>-->
-<!--            <ul class="sub-menu" aria-expanded="false">-->
-<!--                <li>-->
-<!--                    <a href="javascript: void(0);" class="side-nav-link-ref" @click="defaultSidebar">Default Sidebar</a>-->
-<!--                </li>-->
-<!--            </ul>-->
-<!--        </li>-->
-
-<!--        <li class="menu-title">Pages</li>-->
-
-<!--        <li>-->
-<!--            <a href="javascript: void(0);" class="has-arrow">-->
-<!--                <i class="bx bx-user-circle"></i>-->
-<!--                <span>Authentication</span>-->
-<!--            </a>-->
-<!--            <ul class="sub-menu" aria-expanded="false">-->
-<!--                <li>-->
-<!--                    <router-link :to="{ path: 'dashboard' }">Login</router-link>-->
-<!--                </li>-->
-<!--                <li>-->
-<!--                    <router-link to="/register" >Register</router-link>-->
-<!--                </li>-->
-<!--                <li>-->
-<!--                    <router-link to="/recoverpw" >Recover Password</router-link>-->
-<!--                </li>-->
-<!--            </ul>-->
-<!--        </li>-->
-<!--        <li>-->
-<!--            <a href="javascript: void(0);" class="has-arrow">-->
-<!--                <i class="bx bx-file"></i>-->
-<!--                <span>Utility</span>-->
-<!--            </a>-->
-<!--            <ul class="sub-menu" aria-expanded="false">-->
-<!--                <li>-->
-<!--                    <a href="/pages/starter" class="side-nav-link-ref">Starter Page</a>-->
-<!--                </li>-->
-<!--                <li>-->
-<!--                    <a href="/pages/maintenance" class="side-nav-link-ref">Maintenance</a>-->
-<!--                </li>-->
-<!--                <li>-->
-<!--                    <a href="/pages/timeline" class="side-nav-link-ref">Timeline</a>-->
-<!--                </li>-->
-<!--                <li>-->
-<!--                    <a href="/pages/faqs" class="side-nav-link-ref">FAQs</a>-->
-<!--                </li>-->
-<!--                <li>-->
-<!--                    <a href="/pages/pricing" class="side-nav-link-ref">Pricing</a>-->
-<!--                </li>-->
-<!--                <li>-->
-<!--                    <a href="/pages/404" class="side-nav-link-ref">Error 404</a>-->
-<!--                </li>-->
-<!--                <li>-->
-<!--                    <a href="/pages/500" class="side-nav-link-ref">Error 500</a>-->
-<!--                </li>-->
-<!--            </ul>-->
-<!--        </li>-->
-
 
     </ul>
 </div>
@@ -173,7 +102,7 @@
             return {
                 menu: [
                     {
-                        seperator: 'Bilgiler',
+                        seperator: 'informations',
                         auths: this.$auth.check([
                             'dashboard-show'
                         ])
@@ -183,7 +112,6 @@
                         icon: 'bx bx-home-circle',
                         iconSize: '18',
                         invoke: 'admin.dashboard',
-                        title: 'Ana Sayfa',
                         auth: this.$auth.check([
                             'dashboard-show'
                         ])
@@ -191,7 +119,7 @@
 
 
                     {
-                        seperator: 'Sayfalar',
+                        seperator: 'pages',
                         auths: this.$auth.check([
                             'pages-show'
                         ])
@@ -201,7 +129,6 @@
                         icon: 'bx bx-home-circle',
                         iconSize: '18',
                         invoke: 'admin.pages',
-                        title: 'Sayfalar',
                         auth: this.$auth.check([
                             'pages-show'
                         ]),
@@ -211,7 +138,6 @@
                                 icon: 'bx bx-home-circle',
                                 iconSize: '18',
                                 invoke: 'login',
-                                title: 'Giriş',
                                 auth: this.$auth.check([
                                     'login'
                                 ])
@@ -221,7 +147,6 @@
                                 icon: 'bx bx-home-circle',
                                 iconSize: '18',
                                 invoke: 'forbidden',
-                                title: 'Yasaklı Sayfa',
                                 auth: this.$auth.check([
                                     'forbidden'
                                 ])
@@ -231,7 +156,6 @@
                                 icon: 'bx bx-home-circle',
                                 iconSize: '18',
                                 invoke: 'register',
-                                title: 'Kayıt Ol',
                                 auth: this.$auth.check([
                                     'register'
                                 ])
