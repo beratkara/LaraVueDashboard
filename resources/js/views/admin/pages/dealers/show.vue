@@ -33,6 +33,8 @@
                 responsive="sm"
                 :per-page="items.meta.per_page"
                 :busy.sync="loading"
+                :sort-by.sync="orderBy"
+                :sort-desc.sync="sortDesc"
                 @sort-changed="sortChanged"
             >
                 <template v-slot:table-busy>
@@ -75,6 +77,7 @@
 
                 orderBy: "name",
                 sortedBy: "desc",
+                sortDesc : true,
 
                 loading: true,
 
@@ -118,6 +121,7 @@
                 this.perPage = sort.perPage;
                 this.orderBy = sort.sortBy;
                 this.sortedBy = (sort.sortDesc ? 'desc' : 'asc');
+                this.sortDesc = sort.sortDesc;
                 this.list({page: this.page,perPage: this.perPage, orderBy: this.orderBy, sortedBy: this.sortedBy});
             }
 
