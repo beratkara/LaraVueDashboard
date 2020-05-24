@@ -20,7 +20,8 @@ let configWebPack = {
     resolve: {
         extensions: ['.js', '.vue', '.json'],
         alias: {
-            '@': __dirname + '/resources'
+            '@': __dirname + '/resources/js',
+            '@services': '@/services/',
         },
     },
 };

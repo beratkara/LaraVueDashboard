@@ -25,6 +25,11 @@ Route::prefix('auth')
 
         Route::namespace('dealers')->group(function (){
             Route::get('dealers', 'DealersController@index');
+            Route::post('dealers', 'DealersController@store');
+        });
+
+        Route::namespace('users')->group(function (){
+            Route::get('users', 'UsersController@index');
         });
 
     });

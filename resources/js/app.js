@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import store from './store'
 import axios from 'axios'
+import NProgress from "nprogress";
+import 'nprogress/nprogress.css';
 
 import router from './routes.js'
 Vue.router = router;
@@ -50,9 +52,19 @@ export const i18n = new VueI18n({
 });
 
 
-axios.interceptors.response.use(function (response) {
+Vue.axios.interceptors.request.use(config => {
+    NProgress.start();
+    return config;
+}, (error) => {
+    NProgress.done();
+    return Promise.reject(error);
+});
+
+Vue.axios.interceptors.response.use(function (response) {
+    NProgress.done();
     return response;
 }, function (error) {
+    NProgress.done();
     if (error.response.data.error.statusCode === 401) {
         store.dispatch('logout');
         router.push('/login');

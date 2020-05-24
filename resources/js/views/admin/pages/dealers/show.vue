@@ -62,7 +62,7 @@
 </template>
 
 <script>
-    import DealersService from "../../../../services/api/DealersService";
+    import DealersService from "@services/api/DealersService";
 
     export default {
         name: "show",

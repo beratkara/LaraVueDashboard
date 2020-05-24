@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\dealers;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DealersCreateRequest extends FormRequest
+class CreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class DealersCreateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class DealersCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|unique:dealers,name',
+            'user' => 'nullable',
+            'user.uuid' => 'required_with:user|exists:users,uuid'
         ];
     }
 }

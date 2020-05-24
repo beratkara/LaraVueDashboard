@@ -1,51 +1,41 @@
 <?php
 
-namespace App\Http\Controllers\Api\dealers;
+namespace App\Http\Controllers\Api\users;
 
-use App\Filters\DealersFilters;
+use App\Filters\UsersFilters;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\dealers\CreateRequest;
-use App\Http\Resources\DealersResource;
+use App\Http\Resources\UsersResource;
+use App\User;
 use Illuminate\Http\Request;
-use App\Entities\Dealers;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
-class DealersController extends Controller
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @param DealersFilters $filters
-     * @return AnonymousResourceCollection
+     * @param UsersFilters $filters
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index(Request $request, DealersFilters $filters)
+    public function index(Request $request, UsersFilters $filters)
     {
         $pagination = (int)$request->get('paginate', 10);
 
-        $dealers = Dealers::filter($filters)
+        $dealers = User::filter($filters)
             ->paginate($pagination);
 
-        return DealersResource::collection($dealers);
+        return UsersResource::collection($dealers);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param CreateRequest $request
-     * @return void
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    public function store(CreateRequest $request)
+    public function store(Request $request)
     {
-        $attributes = collect($request->all());
-
-        info($attributes);
-
-        $dealers = Dealers::firstOrCreate(['name' => $attributes['name'], 'owner' => $attributes['user']['uuid']]);
-
-        info($dealers);
-
-        //return DealersResource::collection($dealers);
+        //
     }
 
     /**
@@ -62,7 +52,7 @@ class DealersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

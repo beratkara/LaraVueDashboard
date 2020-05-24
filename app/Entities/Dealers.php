@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use App\Filters\Filterable;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
@@ -26,5 +27,9 @@ class Dealers extends Model implements Transformable
         'image',
         'owner'
     ];
+
+    public function users() {
+        return $this->hasMany(User::class, 'uuid', 'owner');
+    }
 
 }
