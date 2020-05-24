@@ -12,6 +12,11 @@ const UnitLayout = () => import('./views/admin/layouts/UnitLayout');
 const AdminIndex = () => import('./views/admin/pages/dashboard/Index');
 const AdminLogout = () => import('./views/admin/pages/logout');
 
+
+const DealersLayout = () => import('./views/admin/pages/dealers/layout');
+const DealersList = () => import('./views/admin/pages/dealers/show');
+const DealersCreate = () => import('./views/admin/pages/dealers/create');
+
 const router = new VueRouter({
     mode: 'history',
     linkActiveClass: 'green',
@@ -59,6 +64,33 @@ const router = new VueRouter({
                     path:'/logout',
                     name:'admin.logout',
                     component: AdminLogout
+                },
+
+                {
+                    path:'dealers',
+                    component: DealersLayout,
+                    children: [
+                        {
+                            path:'show',
+                            name:'admin.dealers.show',
+                            component: DealersList,
+                            /*meta: {
+                                auth: [
+                                    'dealers-show'
+                                ]
+                            }*/
+                        },
+                        {
+                            path:'create',
+                            name:'admin.dealers.create',
+                            component: DealersCreate,
+                            /*meta: {
+                                auth: [
+                                    'dealers-create'
+                                ]
+                            }*/
+                        }
+                    ]
                 },
             ]
         },

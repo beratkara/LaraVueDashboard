@@ -119,49 +119,38 @@
 
 
                     {
-                        seperator: 'pages',
+                        seperator: 'dealers',
                         auths: this.$auth.check([
-                            'pages-show'
+                            'dealers-show',
+                            'dealers-create'
                         ])
                     },
                     {
-                        name: 'pages',
-                        icon: 'bx bx-home-circle',
+                        name: 'dealers',
+                        icon: 'bx bxs-building-house',
                         iconSize: '18',
-                        invoke: 'admin.pages',
                         auth: this.$auth.check([
-                            'pages-show'
+                            'dealers-show',
+                            'dealers-create'
                         ]),
                         children: [
                             {
-                                name: 'login',
-                                icon: 'bx bx-home-circle',
-                                iconSize: '18',
-                                invoke: 'login',
+                                name: 'dealers_show',
+                                invoke: 'admin.dealers.show',
                                 auth: this.$auth.check([
-                                    'login'
+                                    'dealers-show'
                                 ])
                             },
                             {
-                                name: 'forbidden',
-                                icon: 'bx bx-home-circle',
-                                iconSize: '18',
-                                invoke: 'forbidden',
+                                name: 'dealers_create',
+                                invoke: 'admin.dealers.create',
                                 auth: this.$auth.check([
-                                    'forbidden'
-                                ])
-                            },
-                            {
-                                name: 'register',
-                                icon: 'bx bx-home-circle',
-                                iconSize: '18',
-                                invoke: 'register',
-                                auth: this.$auth.check([
-                                    'register'
+                                    'dealers-create'
                                 ])
                             },
                         ]
                     },
+
 
 
                 ]

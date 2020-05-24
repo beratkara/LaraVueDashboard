@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 
 
 class AuthController extends Controller
@@ -37,7 +38,16 @@ class AuthController extends Controller
     }
 
     public function logout(Request $request) {
-        auth()->logout();
+        try {
+
+            auth()->logout();
+
+        }
+        catch (TokenExpiredException $exception)
+        {
+            return response()->json(['message' => 'Token Expired !'], 401);
+        }
+
         return response()->json(['message' => 'Successfully logged out'], 200);
     }
 

@@ -23,4 +23,8 @@ Route::prefix('auth')
         Route::post('logout', 'AuthController@logout');
         Route::post('register', 'AuthController@register');
 
+        Route::namespace('dealers')->group(function (){
+            Route::get('dealers', 'DealersController@index');
+        });
+
     });

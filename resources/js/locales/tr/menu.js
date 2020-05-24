@@ -8,5 +8,8 @@ export default {
     login: 'Giriş',
     register: 'Kayıt',
     forbidden: 'Yasaklı',
+    dealers: 'Bayiler',
+    dealers_show: 'Bayileri Görüntüle',
+    dealers_create: 'Bayi Oluştur',
 
 }
