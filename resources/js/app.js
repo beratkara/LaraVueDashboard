@@ -22,6 +22,7 @@ Vue.use(VueAuth, auth);
 import VueI18n from 'vue-i18n'
 Vue.use(VueI18n);
 
+// Load All Locale Files
 let loadLocaleFiles = function(req) {
     const lang = {};
     req.keys().forEach(filename => {
@@ -46,6 +47,17 @@ export const i18n = new VueI18n({
     locale: 'tr',
     fallbackLocale: 'tr',
     messages
+});
+
+
+axios.interceptors.response.use(function (response) {
+    return response;
+}, function (error) {
+    if (error.response.data.error.statusCode === 401) {
+        store.dispatch('logout');
+        router.push('/login');
+    }
+    return Promise.reject(error);
 });
 
 import App from './layouts/App.vue'
