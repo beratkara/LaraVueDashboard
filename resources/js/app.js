@@ -69,7 +69,6 @@ Vue.axios.interceptors.response.use(function (response) {
         store.dispatch('logout');
         router.push('/login');
     }
-    return Promise.reject(error);
 });
 
 import App from './layouts/App.vue'
