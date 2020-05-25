@@ -65,6 +65,7 @@ Vue.axios.interceptors.response.use(function (response) {
     return response;
 }, function (error) {
     NProgress.done();
+    console.log(error.response.data);
     if (error.response.data.error.statusCode === 401) {
         store.dispatch('logout');
         router.push('/login');

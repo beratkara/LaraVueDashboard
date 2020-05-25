@@ -32,4 +32,9 @@ Route::prefix('auth')
             Route::get('users', 'UsersController@index');
         });
 
+        Route::namespace('persons')->group(function (){
+            Route::get('persons', 'PersonController@index');
+            Route::post('persons', 'PersonController@store');
+        });
+
     });

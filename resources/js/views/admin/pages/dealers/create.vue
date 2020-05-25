@@ -86,7 +86,6 @@
             }
         },
         async created() {
-            console.log(this.$v);
             await this.getUsers();
         }
     }

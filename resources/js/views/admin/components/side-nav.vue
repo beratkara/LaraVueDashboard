@@ -12,10 +12,10 @@
             <li class="menu-title" v-if="link.hasOwnProperty('seperator')">{{ $t("menu." + link.seperator) }}</li>
 
             <li v-else>
-                <router-link v-if="link.hasOwnProperty('children')" to="" class="has-arrow">
+                <a v-if="link.hasOwnProperty('children')" href="/" class="has-arrow">
                     <i :class="link.icon"></i>
                     <span>{{ $t("menu." + link.name) }}</span>
-                </router-link>
+                </a>
                 <router-link v-else :to="{ name: link.invoke }">
                     <i :class="link.icon"></i>
                     <span>{{ $t("menu." + link.name) }}</span>
@@ -119,7 +119,7 @@
 
 
                     {
-                        seperator: 'dealers',
+                        seperator: 'company',
                         auths: this.$auth.check([
                             'dealers-show',
                             'dealers-create'
@@ -146,6 +146,31 @@
                                 invoke: 'admin.dealers.create',
                                 auth: this.$auth.check([
                                     'dealers-create'
+                                ])
+                            },
+                        ]
+                    },
+                    {
+                        name: 'persons',
+                        icon: 'bx bxs-building-house',
+                        iconSize: '18',
+                        auth: this.$auth.check([
+                            'persons-show',
+                            'persons-create'
+                        ]),
+                        children: [
+                            {
+                                name: 'persons_show',
+                                invoke: 'admin.persons.show',
+                                auth: this.$auth.check([
+                                    'persons-show'
+                                ])
+                            },
+                            {
+                                name: 'persons_create',
+                                invoke: 'admin.persons.create',
+                                auth: this.$auth.check([
+                                    'persons-create'
                                 ])
                             },
                         ]

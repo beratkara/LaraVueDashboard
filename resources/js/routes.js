@@ -13,10 +13,13 @@ const UnitLayout = () => import('./views/admin/layouts/UnitLayout');
 const AdminIndex = () => import('./views/admin/pages/dashboard/Index');
 const AdminLogout = () => import('./views/admin/pages/logout');
 
-
 const DealersLayout = () => import('./views/admin/pages/dealers/layout');
 const DealersList = () => import('./views/admin/pages/dealers/show');
 const DealersCreate = () => import('./views/admin/pages/dealers/create');
+
+const PersonsLayout = () => import('./views/admin/pages/persons/layout');
+const PersonsList = () => import('./views/admin/pages/persons/show');
+const PersonCreate = () => import('./views/admin/pages/persons/create');
 
 const router = new VueRouter({
     mode: 'history',
@@ -93,6 +96,35 @@ const router = new VueRouter({
                         }
                     ]
                 },
+
+                {
+                    path:'persons',
+                    component: PersonsLayout,
+                    children: [
+                        {
+                            path:'show',
+                            name:'admin.persons.show',
+                            component: PersonsList,
+                            /*meta: {
+                                auth: [
+                                    'persons-show'
+                                ]
+                            }*/
+                        },
+                        {
+                            path:'create',
+                            name:'admin.persons.create',
+                            component: PersonCreate,
+                            /*meta: {
+                                auth: [
+                                    'persons-create'
+                                ]
+                            }*/
+                        }
+                    ]
+                },
+
+
             ]
         },
 
