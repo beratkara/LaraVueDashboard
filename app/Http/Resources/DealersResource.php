@@ -17,7 +17,7 @@ class DealersResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'owner' => UsersResource::collection($this->users)
+            'owner' => UsersResource::collection($this->whenLoaded('users'))
         ];
     }
 }

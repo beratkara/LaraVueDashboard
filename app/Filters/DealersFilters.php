@@ -7,7 +7,7 @@ use App\Filters\QueryFilter;
 class DealersFilters extends QueryFilter
 {
     protected $availableIncludes = [
-        'owner'     => 'owner',
+        'users',
     ];
 
     protected $defaultIncludes = [

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Entities\Dealers;
 use App\Filters\Filterable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -38,6 +39,10 @@ class User extends Authenticatable implements JWTSubject
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function dealers() {
+        return $this->hasMany(Dealers::class, 'owner', 'uuid');
+    }
 
     public function getJWTIdentifier()
     {

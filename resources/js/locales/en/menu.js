@@ -8,5 +8,8 @@ export default {
     login: 'Login',
     register: 'Register',
     forbidden: 'Forbidden',
+    dealers: 'Dealers',
+    dealers_show: 'Dealers Show',
+    dealers_create: 'Dealers Create',
 
 }

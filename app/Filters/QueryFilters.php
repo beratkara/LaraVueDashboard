@@ -78,4 +78,14 @@ abstract class QueryFilter
         $sortedBy = $this->request->get('sortedBy', 'desc');
         $this->builder->orderBy($value, $sortedBy);
     }
+
+    public function include($value)
+    {
+        $includes = explode(',', $value);
+        foreach ($includes as $item) {
+            if(in_array($item, $this->availableIncludes)) {
+                $this->builder->with($item);
+            }
+        }
+    }
 }
