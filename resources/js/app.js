@@ -90,7 +90,4 @@ const app = new Vue({
     render: h => h(App)
 });
 
-// After you create app
-window.__VUE_DEVTOOLS_GLOBAL_HOOK__.Vue = app.constructor;
-
 export default app;

@@ -55,10 +55,10 @@ class PersonController extends Controller
         info($attributesInfo);
 
         $user->info()->firstOrCreate([
-            'owner' => User::find($user->id)->uuid
+            'owner' => 'f2bc31b9-20e2-40ff-9145-bba20bb484b4'//User::find($user->id)->uuid
         ], [
             'identity_number' => $attributesInfo['identity_number'],
-            'owner' => User::find($user->id)->uuid,
+            'owner' => 'f2bc31b9-20e2-40ff-9145-bba20bb484b4',
         ]);
 
         return PersonResource::make($user);
