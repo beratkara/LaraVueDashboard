@@ -65,11 +65,14 @@ Vue.axios.interceptors.response.use(function (response) {
     return response;
 }, function (error) {
     NProgress.done();
-    console.log(error.response.data);
-    if (error.response.data.error.statusCode === 401) {
-        store.dispatch('logout');
-        router.push('/login');
+    if (error.response.status === 401 || error.response.status === 403) {
+        Vue.auth.logout({
+            redirect: 'login',
+            makeRequest: false,
+        });
+        return true;
     }
+    return Promise.reject(error);
 });
 
 import App from './layouts/App.vue'

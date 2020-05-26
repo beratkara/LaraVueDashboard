@@ -22,11 +22,6 @@ class PersonInfo extends Model implements Transformable
      */
     protected $fillable = [
         'identity_number',
-        'gender',
-        'age',
-        'birth_place',
-        'nationality',
-        'birth_day',
         'owner'
     ];
 

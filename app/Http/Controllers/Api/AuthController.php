@@ -29,7 +29,8 @@ class AuthController extends Controller
     public function register(Request $request) {
         $attributes = $request->only(['credentials.email','credentials.password']);
 
-        $user = User::create([
+        /** @var User $user */
+        $user = User::firstOrCreate([
             'email'    => $attributes['credentials']['email'] ,
             'password' => bcrypt($attributes['credentials']['password']),
         ]);
@@ -41,7 +42,6 @@ class AuthController extends Controller
         try {
 
             auth()->logout();
-
         }
         catch (TokenExpiredException $exception)
         {

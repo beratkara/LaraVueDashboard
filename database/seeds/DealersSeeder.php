@@ -13,7 +13,7 @@ class DealersSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 0; $i < 100; $i++)
+        for ($i = 0; $i < 2; $i++)
         {
             DB::table('dealers')->insert([
                 'name' => Str::random(10),

@@ -33,7 +33,7 @@ class DealersController extends Controller
      * Store a newly created resource in storage.
      *
      * @param CreateRequest $request
-     * @return AnonymousResourceCollection
+     * @return DealersResource
      */
     public function store(CreateRequest $request)
     {
@@ -41,7 +41,7 @@ class DealersController extends Controller
 
         $dealers = Dealers::firstOrCreate(['name' => $attributes['name'], 'owner' => $attributes['user']['uuid']]);
 
-        return DealersResource::collection($dealers);
+        return DealersResource::make($dealers);
     }
 
     /**

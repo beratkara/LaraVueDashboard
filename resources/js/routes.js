@@ -11,7 +11,6 @@ const GuestRegister = () => import('./views/guest/layouts/GuestRegister');
 
 const UnitLayout = () => import('./views/admin/layouts/UnitLayout');
 const AdminIndex = () => import('./views/admin/pages/dashboard/Index');
-const AdminLogout = () => import('./views/admin/pages/logout');
 
 const DealersLayout = () => import('./views/admin/pages/dealers/layout');
 const DealersList = () => import('./views/admin/pages/dealers/show');
@@ -63,11 +62,6 @@ const router = new VueRouter({
                     path:'dashboard',
                     name:'admin.dashboard',
                     component: AdminIndex,
-                },
-                {
-                    path:'/logout',
-                    name:'admin.logout',
-                    component: AdminLogout
                 },
 
                 {

@@ -177,7 +177,7 @@
             <i class="bx bx-wrench font-size-16 align-middle mr-1"></i> Settings
           </a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item text-danger" href="/logout">
+          <a class="dropdown-item text-danger" href="javascript: void(0);" @click="logout">
             <i class="bx bx-power-off font-size-16 align-middle mr-1 text-danger"></i> Logout
           </a>
         </b-dropdown>
@@ -249,6 +249,12 @@
             setLanguage(lang) {
                 this.$i18n.locale = lang;
                 this.currentLocales = this.$i18n.locale;
+            },
+            logout() {
+                this.$auth.logout({
+                    success: function () {
+                    },
+                })
             },
         },
         created() {

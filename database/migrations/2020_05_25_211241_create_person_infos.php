@@ -17,13 +17,13 @@ class CreatePersonInfos extends Migration
         Schema::create('person_infos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->uuid('uuid')->unique()->default(DB::raw('gen_random_uuid()'));
-            $table->string('identitiy_number')->unique()->nullable();
+            $table->string('identity_number')->unique()->nullable();
             $table->enum('gender', ['male','female'])->nullable();
             $table->tinyInteger('age')->nullable();
             $table->json('birth_place')->nullable();
             $table->json('nationality')->nullable();
             $table->date('birth_day')->nullable();
-            $table->uuid('owner');
+            $table->uuid('owner')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
