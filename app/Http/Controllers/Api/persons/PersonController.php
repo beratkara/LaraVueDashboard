@@ -51,15 +51,16 @@ class PersonController extends Controller
 
         $attributesInfo = $request->only(['identity_number','gender','age','birth_place','nationality','birth_day']);
         $attributesInfo['identity_number'] = Str::random(11);
+        $attributesInfo['owner'] = User::find($user->id)->uuid;
 
         info($attributesInfo);
 
-        $user->info()->firstOrCreate([
-            'owner' => 'f2bc31b9-20e2-40ff-9145-bba20bb484b4'//User::find($user->id)->uuid
-        ], [
+        $user->info()->create($attributesInfo);
+
+        /*$user->info()->create([
             'identity_number' => $attributesInfo['identity_number'],
-            'owner' => 'f2bc31b9-20e2-40ff-9145-bba20bb484b4',
-        ]);
+            'owner' => '7d13651c-6e76-4baf-83b3-80cb852224aa',
+        ]);*/
 
         return PersonResource::make($user);
     }

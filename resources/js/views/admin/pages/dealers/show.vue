@@ -43,12 +43,13 @@
                         <strong>{{ loadingMessage + '...' }}</strong>
                     </div>
                 </template>
-                <template v-slot:cell(owner)="{ item }">
+                <template v-slot:cell(name)="{ item }">
                     {{ item.name }}
                 </template>
                 <template v-slot:cell(owner)="{ item }" >
-                    <template v-if="item.hasOwnProperty('owner')" v-for="(owners, index) in item.owner">
-                        <b-link :href="owners.uuid">{{ owners.name }}</b-link>
+                    <template v-if="item.hasOwnProperty('owner')">
+                        {{ item.owner }}
+<!--                        <b-link :href="owners.uuid">{{ owners.name }}</b-link>-->
                     </template>
                 </template>
 

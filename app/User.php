@@ -45,11 +45,11 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     public function dealers() {
-        return $this->hasMany(Dealers::class, 'owner', 'uuid');
+        return $this->hasMany(Dealers::class);
     }
 
     public function info() {
-        return $this->hasOne(PersonInfo::class, 'owner', 'uuid');
+        return $this->hasOne(PersonInfo::class);
     }
 
     public function getJWTIdentifier()

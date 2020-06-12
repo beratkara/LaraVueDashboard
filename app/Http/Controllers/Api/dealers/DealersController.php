@@ -6,6 +6,7 @@ use App\Filters\DealersFilters;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\dealers\CreateRequest;
 use App\Http\Resources\DealersResource;
+use App\User;
 use Illuminate\Http\Request;
 use App\Entities\Dealers;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -39,7 +40,21 @@ class DealersController extends Controller
     {
         $attributes = collect($request->all());
 
-        $dealers = Dealers::firstOrCreate(['name' => $attributes['name'], 'owner' => $attributes['user']['uuid']]);
+        if (isset($attributes['user']['uuid']))
+        {
+            /** @var User $user */
+            $user = User::where('uuid', $attributes['user']['uuid'])->firstOrFail();
+            $dealers = $user->dealers()->firstOrCreate([
+                'name' => $attributes['name']
+            ],[
+                'name' => $attributes['name'],
+                'user_id' => $user->id
+            ]);
+        }
+        else
+        {
+            $dealers = Dealers::firstOrCreate(['name' => $attributes['name']]);
+        }
 
         return DealersResource::make($dealers);
     }

@@ -22,13 +22,13 @@ class CreatePersonInfos extends Migration
             $table->tinyInteger('age')->nullable();
             $table->json('birth_place')->nullable();
             $table->json('nationality')->nullable();
-            $table->date('birth_day')->nullable();
-            $table->uuid('owner')->nullable();
+            $table->date('birth_date')->nullable();
+            $table->bigInteger('user_id');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('owner')
-                ->references('uuid')
+            $table->foreign('user_id')
+                ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
         });

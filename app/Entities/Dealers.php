@@ -24,12 +24,11 @@ class Dealers extends Model implements Transformable
      */
     protected $fillable = [
         'name',
-        'image',
-        'owner'
+        'image'
     ];
 
     public function users() {
-        return $this->hasMany(User::class, 'uuid', 'owner');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
 }

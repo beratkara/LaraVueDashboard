@@ -19,12 +19,12 @@ class CreateDealersTable extends Migration
             $table->uuid('uuid')->unique()->default(DB::raw('gen_random_uuid()'));
             $table->string('name');
             $table->string('image')->nullable();
-            $table->uuid('owner')->nullable();
+            $table->bigInteger('user_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('owner')
-                ->references('uuid')
+            $table->foreign('user_id')
+                ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
         });
