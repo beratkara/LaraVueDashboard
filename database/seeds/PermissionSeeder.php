@@ -1,11 +1,10 @@
 <?php
 
-use App\Entities\Roles;
+use App\Entities\Permissions;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-class RoleSeeder extends Seeder
+class PermissionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,19 +13,43 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        Roles::firstOrCreate([
-            'name' => 'Okul Yönetimi',
-            'slug' => Str::slug('Okul Yönetimi')
-        ]);
+        $permissions = [
+            [
+                'name' => 'Dashboardı Görebilir',
+                'slug' => 'Dashboard Show'
+            ],
+            [
+                'name' => 'Personelleri Görebilir',
+                'slug' => 'Persons Show'
+            ],
+            [
+                'name' => 'Personel Oluşturabilir',
+                'slug' => 'Persons Create'
+            ],
+            [
+                'name' => 'Öğrencileri Görebilir',
+                'slug' => 'Students Show'
+            ],
+            [
+                'name' => 'Öğrenci Oluşturabilir',
+                'slug' => 'Students Create'
+            ],
+            [
+                'name' => 'Profil Bilgilerini Görüntüleyebilir',
+                'slug' => 'Profile Show'
+            ],
+            [
+                'name' => 'Profil Bilgilerini Düzenleyebilir',
+                'slug' => 'Profile Edit'
+            ],
+        ];
 
-        Roles::firstOrCreate([
-            'name' => 'Öğrenci',
-            'slug' => Str::slug('Öğrenci')
-        ]);
+        foreach ($permissions as $key => $value) {
+            Permissions::updateOrCreate(
+                ['name' => $value['name']],
+                ['slug' => Str::slug($value['slug'])]
+            );
+        }
 
-        Roles::firstOrCreate([
-            'name' => 'Veli',
-            'slug' => Str::slug('Veli')
-        ]);
     }
 }

@@ -11,12 +11,12 @@ export default {
 
     company: 'Şirket',
 
-    dealers: 'Bayiler',
-    dealers_show: 'Bayileri Görüntüle',
-    dealers_create: 'Bayi Oluştur',
-
     persons: 'Personeller',
     persons_show: 'Personelleri Görüntüle',
     persons_create: 'Personel Oluştur',
+
+    students: 'Öğrenciler',
+    students_show: 'Öğrencileri Görüntüle',
+    students_create: 'Öğrenci Oluştur',
 
 }

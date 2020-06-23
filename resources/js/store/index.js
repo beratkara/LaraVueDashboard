@@ -9,6 +9,12 @@ const debug = process.env.NODE_ENV !== 'production';
 Vue.config.devtools = process.env.NODE_ENV === 'development';
 
 export default new Vuex.Store({
+    state: {
+        permissions: []
+    },
+    getters: {
+        permissions: state => state.permission
+    },
     modules: {
         auth
     },

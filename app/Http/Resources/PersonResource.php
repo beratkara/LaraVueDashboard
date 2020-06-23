@@ -17,7 +17,9 @@ class PersonResource extends JsonResource
         return [
             'uuid' => $this->uuid,
             'name' => $this->name,
-            'info' => PersonInfoResource::make($this->info)
+            'info' => PersonInfoResource::make($this->info),
+            'permissions' => PermissionsResource::collection($this->whenLoaded('permissions')),
+            'roles' => RolesResource::collection($this->whenLoaded('roles')),
         ];
     }
 }

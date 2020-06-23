@@ -8,27 +8,30 @@
 
         <template v-for="(link, index) in mainMenu">
 
-
-            <li class="menu-title" v-if="link.hasOwnProperty('seperator')">{{ $t("menu." + link.seperator) }}</li>
+            <template v-if="link.auths">
+                <li class="menu-title" v-if="link.hasOwnProperty('seperator')">{{ $t("menu." + link.seperator) }}</li>
+            </template>
 
             <li v-else>
-                <a v-if="link.hasOwnProperty('children')" href="/" class="has-arrow">
-                    <i :class="link.icon"></i>
-                    <span>{{ $t("menu." + link.name) }}</span>
-                </a>
-                <router-link v-else :to="{ name: link.invoke }">
-                    <i :class="link.icon"></i>
-                    <span>{{ $t("menu." + link.name) }}</span>
-                </router-link>
-                <ul class="sub-menu" aria-expanded="false" v-if="link.children">
-                <template v-for="(children, childIndex) in link.children">
-                    <li>
-                        <router-link :to="{ name: children.invoke }">
-                            <span class="side-nav-link-ref">{{ $t("menu." + children.name) }}</span>
-                        </router-link>
-                    </li>
+                <template v-if="link.auth">
+                    <a v-if="link.hasOwnProperty('children')" href="/" class="has-arrow">
+                        <i :class="link.icon"></i>
+                        <span>{{ $t("menu." + link.name) }}</span>
+                    </a>
+                    <router-link v-else :to="{ name: link.invoke }">
+                        <i :class="link.icon"></i>
+                        <span>{{ $t("menu." + link.name) }}</span>
+                    </router-link>
+                    <ul class="sub-menu" aria-expanded="false" v-if="link.children">
+                    <template v-for="(children, childIndex) in link.children">
+                        <li>
+                            <router-link :to="{ name: children.invoke }">
+                                <span class="side-nav-link-ref">{{ $t("menu." + children.name) }}</span>
+                            </router-link>
+                        </li>
+                    </template>
+                    </ul>
                 </template>
-                </ul>
             </li>
 
         </template>
@@ -121,35 +124,39 @@
                     {
                         seperator: 'company',
                         auths: this.$auth.check([
-                            'dealers-show',
-                            'dealers-create'
+                            'students-show',
+                            'students-create',
+                            'persons-show',
+                            'persons-create'
                         ])
                     },
+
                     {
-                        name: 'dealers',
+                        name: 'students',
                         icon: 'bx bxs-building-house',
                         iconSize: '18',
                         auth: this.$auth.check([
-                            'dealers-show',
-                            'dealers-create'
+                            'students-show',
+                            'students-create'
                         ]),
                         children: [
                             {
-                                name: 'dealers_show',
-                                invoke: 'admin.dealers.show',
+                                name: 'students_show',
+                                invoke: 'admin.students.show',
                                 auth: this.$auth.check([
-                                    'dealers-show'
+                                    'students-show'
                                 ])
                             },
                             {
-                                name: 'dealers_create',
-                                invoke: 'admin.dealers.create',
+                                name: 'students_create',
+                                invoke: 'admin.students.create',
                                 auth: this.$auth.check([
-                                    'dealers-create'
+                                    'students-create'
                                 ])
                             },
                         ]
                     },
+
                     {
                         name: 'persons',
                         icon: 'bx bxs-building-house',

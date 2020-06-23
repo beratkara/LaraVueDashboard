@@ -1,8 +1,9 @@
 <?php
 
+use App\Entities\Roles;
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class StudentSeeder extends Seeder
 {
@@ -13,14 +14,33 @@ class StudentSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker\Factory::create();
-        for ($i = 0; $i < rand(2,10); $i++)
+        /** @var Roles $studentRoles */
+        $studentRoles = Roles::where('slug','student')->firstOrFail();
+        $permissions = $studentRoles->permissions()->get();
+
+        $faker = Faker\Factory::create("tr_TR");
+        $faker->addProvider(new Faker\Provider\tr_TR\Person($faker));
+        foreach (range(10,20) as $step)
         {
             $gender = $faker->randomElement(['male', 'female']);
-            DB::table('users')->insert([
-                'name' => $faker->unique()->name($gender),
-                ''
+            /** @var User $user */
+            $user = User::firstOrCreate([
+                'email' => $faker->unique()->safeEmail,
+                'name' => $faker->unique()->firstName($gender),
+                'surname' => $faker->unique()->lastName,
+                'password' => bcrypt('12345678'),
             ]);
+            $birthDate = $faker->date('Y-m-d','now');
+            $user->info()->firstOrCreate([
+                'identity_number' => $faker->unique()->tcNo,
+                'gender' => $gender,
+                'birth_date' => $birthDate,
+                'age' => Carbon::now()->diffInYears($birthDate),
+                'birth_place' => $faker->city,
+                'nationality' => $faker->languageCode,
+            ]);
+            $user->roles()->sync($studentRoles);
+            $user->permissions()->sync($permissions);
         }
     }
 }

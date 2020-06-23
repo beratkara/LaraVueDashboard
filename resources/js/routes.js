@@ -12,13 +12,13 @@ const GuestRegister = () => import('./views/guest/layouts/GuestRegister');
 const UnitLayout = () => import('./views/admin/layouts/UnitLayout');
 const AdminIndex = () => import('./views/admin/pages/dashboard/Index');
 
-const DealersLayout = () => import('./views/admin/pages/dealers/layout');
-const DealersList = () => import('./views/admin/pages/dealers/show');
-const DealersCreate = () => import('./views/admin/pages/dealers/create');
-
 const PersonsLayout = () => import('./views/admin/pages/persons/layout');
 const PersonsList = () => import('./views/admin/pages/persons/show');
 const PersonCreate = () => import('./views/admin/pages/persons/create');
+
+const StudentsLayout = () => import('./views/admin/pages/students/layout');
+const StudentsList = () => import('./views/admin/pages/students/show');
+const StudentsCreate = () => import('./views/admin/pages/students/create');
 
 const router = new VueRouter({
     mode: 'history',
@@ -65,28 +65,28 @@ const router = new VueRouter({
                 },
 
                 {
-                    path:'dealers',
-                    component: DealersLayout,
+                    path:'students',
+                    component: StudentsLayout,
                     children: [
                         {
                             path:'show',
-                            name:'admin.dealers.show',
-                            component: DealersList,
-                            /*meta: {
+                            name:'admin.students.show',
+                            component: StudentsList,
+                            meta: {
                                 auth: [
-                                    'dealers-show'
+                                    'students-show'
                                 ]
-                            }*/
+                            }
                         },
                         {
                             path:'create',
-                            name:'admin.dealers.create',
-                            component: DealersCreate,
-                            /*meta: {
+                            name:'admin.students.create',
+                            component: StudentsCreate,
+                            meta: {
                                 auth: [
-                                    'dealers-create'
+                                    'students-create'
                                 ]
-                            }*/
+                            }
                         }
                     ]
                 },
@@ -99,21 +99,21 @@ const router = new VueRouter({
                             path:'show',
                             name:'admin.persons.show',
                             component: PersonsList,
-                            /*meta: {
+                            meta: {
                                 auth: [
                                     'persons-show'
                                 ]
-                            }*/
+                            }
                         },
                         {
                             path:'create',
                             name:'admin.persons.create',
                             component: PersonCreate,
-                            /*meta: {
+                            meta: {
                                 auth: [
                                     'persons-create'
                                 ]
-                            }*/
+                            }
                         }
                     ]
                 },

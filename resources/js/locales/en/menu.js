@@ -11,12 +11,12 @@ export default {
 
     company: 'Company',
 
-    dealers: 'Dealers',
-    dealers_show: 'Dealers Show',
-    dealers_create: 'Dealers Create',
-
     persons: 'Persons',
     persons_show: 'Persons Show',
     persons_create: 'Person Create',
+
+    students: 'Students',
+    students_show: 'Students Show',
+    students_create: 'Student Create',
 
 }

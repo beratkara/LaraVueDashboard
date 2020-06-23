@@ -1,9 +1,10 @@
 <?php
 
+use App\Entities\Roles;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
-class UserSeeder extends Seeder
+class RoleSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,11 +13,23 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'name' => 'Okul',
-            'surname' => 'Yönetimi',
-            'email' => 'admin@admin.com',
-            'password' => bcrypt('963852741'),
-        ]);
+        $roles = [
+            [
+                'name' => 'School Management'
+            ],
+            [
+                'name' => 'Student'
+            ],
+            [
+                'name' => 'Parents'
+            ],
+        ];
+
+        foreach ($roles as $key => $value) {
+            Roles::updateOrCreate(
+                ['name' => $value['name']],
+                ['slug' => Str::slug($value['name'])]
+            );
+        }
     }
 }

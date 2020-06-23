@@ -11,7 +11,8 @@ class PersonFilters extends QueryFilter
     ];
 
     protected $defaultIncludes = [
-
+        'permissions',
+        'roles'
     ];
 
     protected $searches = [

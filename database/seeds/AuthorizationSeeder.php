@@ -1,11 +1,12 @@
 <?php
 
 use App\Entities\Permissions;
+use App\Entities\Roles;
+use App\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-class PermissionSeeder extends Seeder
+class AuthorizationSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,24 +15,28 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
-        Permissions::firstOrCreate([
-            'name' => 'Personelleri Görebilir',
-            'slug' => Str::slug('Persons Show')
-        ]);
+        /** @var Roles $fullAuthority */
+        $fullAuthority = Roles::where('slug','school-management')->firstOrFail();
+        $fullAuthority->permissions()->attach(Permissions::all());
 
-        Permissions::firstOrCreate([
-            'name' => 'Personel Oluşturabilir',
-            'slug' => Str::slug('Persons Create')
-        ]);
+        /** @var User $user */
+        $user = User::where('email','admin@admin.com')->first();
+        $user->roles()->sync($fullAuthority);
+        $user->permissions()->sync(Permissions::all());
 
-        Permissions::firstOrCreate([
-            'name' => 'Öğrencileri Görebilir',
-            'slug' => Str::slug('Students Show')
-        ]);
+        /** @var Roles $parentsAuthority */
+        $parentsAuthority = Roles::where('slug','parents')->firstOrFail();
+        $parents = [
+            Str::slug('Students Show'),
+            Str::slug('Profile Show'),
+        ];
+        $parentsAuthority->permissions()->attach(Permissions::whereIn('slug',$parents)->get());
 
-        Permissions::firstOrCreate([
-            'name' => 'Öğrenci Oluşturabilir',
-            'slug' => Str::slug('Students Create')
-        ]);
+        /** @var Roles $studentAuthority */
+        $studentAuthority = Roles::where('slug','student')->firstOrFail();
+        $student = [
+            Str::slug('Profile Show'),
+        ];
+        $studentAuthority->permissions()->attach(Permissions::whereIn('slug',$student)->get());
     }
 }

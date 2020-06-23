@@ -72,7 +72,6 @@
     export default {
         name: "Index",
         mounted() {
-
         }
     }
 </script>

@@ -3,21 +3,23 @@
 namespace App\Http\Controllers\Api\users;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UsersResource;
+use App\Http\Resources\SettingsResource;
 use App\User;
 use Illuminate\Http\Request;
 
-class RolesController extends Controller
+class SettingsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @return SettingsResource
      */
     public function index(Request $request)
     {
-        dd(auth()->user());
+        $user = User::find(auth()->user()->id)->with('roles','permissions')->first();
+
+        return SettingsResource::make($user);
     }
 
     /**

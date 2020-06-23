@@ -29,6 +29,7 @@ class PersonInfo extends Model implements Transformable
         'birth_place',
         'nationality',
         'birth_date',
+        'code',
     ];
 
     public function users() {

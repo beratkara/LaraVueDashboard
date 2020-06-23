@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api\persons;
 
-use App\Entities\PersonInfo;
 use App\Filters\PersonFilters;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PersonResource;

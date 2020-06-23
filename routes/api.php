@@ -20,21 +20,29 @@ Route::prefix('auth')
     ->group(function () {
 
         Route::post('login', 'AuthController@login');
-        Route::post('logout', 'AuthController@logout');
         Route::post('register', 'AuthController@register');
 
-        Route::namespace('dealers')->group(function (){
-            Route::get('dealers', 'DealersController@index');
-            Route::post('dealers', 'DealersController@store');
+        Route::middleware('jwt.auth')->group(function () {
+
+            Route::post('logout', 'AuthController@logout');
+
+            Route::namespace('dealers')->group(function (){
+                Route::get('dealers', 'DealersController@index');
+                Route::post('dealers', 'DealersController@store');
+            });
+
+            Route::namespace('users')->group(function (){
+                Route::get('users', 'UsersController@index');
+                Route::get('users/settings', 'SettingsController@index');
+            });
+
+            Route::namespace('persons')->group(function (){
+                Route::get('persons', 'PersonController@index');
+                Route::post('persons', 'PersonController@store');
+            });
+
         });
 
-        Route::namespace('users')->group(function (){
-            Route::get('users', 'UsersController@index');
-        });
 
-        Route::namespace('persons')->group(function (){
-            Route::get('persons', 'PersonController@index');
-            Route::post('persons', 'PersonController@store');
-        });
 
     });

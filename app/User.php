@@ -2,10 +2,11 @@
 
 namespace App;
 
-use App\Entities\Dealers;
+use App\Entities\Permissions;
 use App\Entities\PersonInfo;
+use App\Entities\Roles;
 use App\Filters\Filterable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -44,12 +45,30 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-    public function dealers() {
-        return $this->hasMany(Dealers::class);
-    }
-
     public function info() {
         return $this->hasOne(PersonInfo::class);
+    }
+
+    public function permissions(): MorphToMany
+    {
+        return $this->morphedByMany(
+            Permissions::class,
+            'model',
+            'model_has_permissions',
+            'model_id',
+            'permission_id',
+        );
+    }
+
+    public function roles(): MorphToMany
+    {
+        return $this->morphedByMany(
+            Roles::class,
+            'model',
+            'model_has_roles',
+            'model_id',
+            'role_id'
+        );
     }
 
     public function getJWTIdentifier()

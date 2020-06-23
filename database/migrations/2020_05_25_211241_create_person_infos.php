@@ -20,9 +20,10 @@ class CreatePersonInfos extends Migration
             $table->string('identity_number')->unique()->nullable();
             $table->enum('gender', ['male','female'])->nullable();
             $table->tinyInteger('age')->nullable();
-            $table->json('birth_place')->nullable();
-            $table->json('nationality')->nullable();
+            $table->string('birth_place')->nullable();
+            $table->string('nationality')->nullable();
             $table->date('birth_date')->nullable();
+            $table->integer('code')->nullable();
             $table->bigInteger('user_id');
             $table->timestamps();
             $table->softDeletes();
