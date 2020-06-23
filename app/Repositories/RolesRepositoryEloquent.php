@@ -4,16 +4,16 @@ namespace App\Repositories;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\DealersRepository;
-use App\Entities\Dealers;
-use App\Validators\DealersValidator;
+use App\Repositories\RolesRepository;
+use App\Entities\Roles;
+use App\Validators\RolesValidator;
 
 /**
- * Class DealersRepositoryEloquent.
+ * Class RolesRepositoryEloquent.
  *
  * @package namespace App\Repositories;
  */
-class DealersRepositoryEloquent extends BaseRepository implements DealersRepository
+class RolesRepositoryEloquent extends BaseRepository implements RolesRepository
 {
     /**
      * Specify Model class name
@@ -22,20 +22,10 @@ class DealersRepositoryEloquent extends BaseRepository implements DealersReposit
      */
     public function model()
     {
-        return Dealers::class;
+        return Roles::class;
     }
 
-    /**
-    * Specify Validator class name
-    *
-    * @return mixed
-    */
-    public function validator()
-    {
-
-        return DealersValidator::class;
-    }
-
+    
 
     /**
      * Boot up the repository, pushing criteria

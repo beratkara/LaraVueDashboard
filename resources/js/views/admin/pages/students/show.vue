@@ -43,13 +43,12 @@
                         <strong>{{ loadingMessage + '...' }}</strong>
                     </div>
                 </template>
-                <template v-slot:cell(name)="{ item }">
+                <template v-slot:cell(owner)="{ item }">
                     {{ item.name }}
                 </template>
                 <template v-slot:cell(owner)="{ item }" >
-                    <template v-if="item.hasOwnProperty('owner')">
-                        {{ item.owner }}
-<!--                        <b-link :href="owners.uuid">{{ owners.name }}</b-link>-->
+                    <template v-if="item.hasOwnProperty('owner')" v-for="(owners, index) in item.owner">
+                        <b-link :href="owners.uuid">{{ owners.name }}</b-link>
                     </template>
                 </template>
 
@@ -72,7 +71,7 @@
 </template>
 
 <script>
-    import DealersService from "@services/api/DealersService";
+    import PersonsService from "@services/api/PersonsService";
 
     export default {
         name: "show",
@@ -105,8 +104,8 @@
         computed: {
             headers () {
                 return [
-                    { key: 'name', label: this.$t('dealers.name'), sortable: true },
-                    { key: 'owner', label: this.$t('dealers.owner'), sortable: true },
+                    { key: 'name', label: this.$t('person.name'), sortable: true },
+                    { key: 'owner', label: this.$t('person.owner'), sortable: true },
                 ]
             },
             loadingMessage () {
@@ -119,8 +118,8 @@
         methods: {
             async list({page = 1, perPage = 10, orderBy = 'id', sortedBy = 'desc'}) {
                 this.loading = true;
-                let includes = ['users'];
-                let query = (new DealersService)
+                let includes = ['info'];
+                let query = (new PersonsService)
                     .paginate(page, perPage)
                     .filter(this.search)
                     .sort(orderBy, sortedBy)

@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class DealersResource extends JsonResource
+class UsersResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,7 +17,6 @@ class DealersResource extends JsonResource
         return [
             'uuid' => $this->uuid,
             'name' => $this->name,
-            'owner' => UsersResource::make($this->whenLoaded('users'))
         ];
     }
 }
