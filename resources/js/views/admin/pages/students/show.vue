@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h4 class="card-title">{{ $t('menu.dealers') }}</h4>
+        <h4 class="card-title">{{ $t('menu.students') }}</h4>
         <p class="card-title-desc">
             Create responsive tables by wrapping any
             <code>.table</code> in
@@ -42,6 +42,14 @@
                         <b-spinner class="align-middle"></b-spinner>
                         <strong>{{ loadingMessage + '...' }}</strong>
                     </div>
+                </template>
+                <template v-slot:cell(code)="{ item }">
+                    <template v-if="item.code === null">
+                        <button @click="createCode(item)" class="btn btn-primary mr-1">Veli İçin Kod Oluştur</button>
+                    </template>
+                    <template v-else>
+                        test
+                    </template>
                 </template>
             </b-table>
         </div>
@@ -95,14 +103,16 @@
         computed: {
             headers () {
                 return [
-                    { key: 'info.identity_number', label: this.$t('person.identity_number'), sortable: true },
                     { key: 'name', label: this.$t('person.name'), sortable: true },
                     { key: 'surname', label: this.$t('person.surname'), sortable: true },
+                    { key: 'email', label: this.$t('person.email'), sortable: true },
+                    { key: 'info.identity_number', label: this.$t('person.identity_number'), sortable: false },
                     { key: 'parents', label: this.$t('person.parents'), sortable: false },
                     { key: 'info.age', label: this.$t('person.age'), sortable: false },
                     { key: 'info.gender', label: this.$t('person.gender'), sortable: false },
                     { key: 'info.birth_place', label: this.$t('person.birth_place'), sortable: false },
                     { key: 'info.birth_date', label: this.$t('person.birth_date'), sortable: false },
+                    { key: 'code', label: this.$t('person.code'), sortable: false },
                 ]
             },
             loadingMessage () {
@@ -137,6 +147,10 @@
                 this.sortedBy = (sort.sortDesc ? 'desc' : 'asc');
                 this.sortDesc = sort.sortDesc;
                 this.list({page: this.page,perPage: this.perPage, orderBy: this.orderBy, sortedBy: this.sortedBy});
+            },
+            async createCode(item) {
+                let {data: data} = (new StudentsService)
+                    .createCode({id: item.uuid});
             }
 
         },

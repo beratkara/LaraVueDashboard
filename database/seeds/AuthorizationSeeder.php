@@ -23,6 +23,7 @@ class AuthorizationSeeder extends Seeder
         $user = User::where('email','admin@admin.com')->first();
         $user->roles()->sync($fullAuthority);
         $user->permissions()->sync(Permissions::all());
+        $fullAuthority->users()->attach($user);
 
         /** @var Roles $parentsAuthority */
         $parentsAuthority = Roles::where('slug','parents')->firstOrFail();

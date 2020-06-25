@@ -1,7 +1,7 @@
 <template>
     <div>
-    <h4 class="card-title mb-4">{{ $t('person.create') }}</h4>
-    <form @submit.prevent="createDealer">
+    <h4 class="card-title mb-4">{{ $t('person.personal.create') }}</h4>
+    <form @submit.prevent="createPersons">
         <div class="form-group row mb-4">
             <label class="col-form-label col-lg-2">{{ $t('person.name') }}</label>
             <div class="col-lg-10">
@@ -97,17 +97,20 @@
         </div>
 
         <div class="form-group row mb-4">
-            <label class="col-md-2 col-form-label">{{ $t('dealers.dealer') }}</label>
+            <label class="col-md-2 col-form-label">{{ $t('person.roles') }}</label>
             <div class="col-md-10">
-                <multi-select v-model="dealer" select-label="Eklemek için tıklayın" deselect-label="Silmek için tıklayın" track-by="name" label="name" placeholder="Select one" :options="dealers.data" :searchable="true" :allow-empty="true">
+                <multi-select v-model="person.role" select-label="Eklemek için tıklayın" deselect-label="Silmek için tıklayın" track-by="name" label="name" placeholder="Select one" :options="roles.data" :searchable="true" :allow-empty="true">
                     <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.name }}</strong></template>
                 </multi-select>
+                <div v-if="$v.person.role.$error" class="invalid-feedback">
+                    <span v-if="!$v.person.role.required">{{ $t('validations.required') }}</span>
+                </div>
             </div>
         </div>
 
         <div class="col-sm-12">
             <div class="text-sm-right">
-                <b-button @click="createDealer"><i class="mdi mdi-truck-fast mr-1"></i> {{ $t('common.create') }}</b-button>
+                <b-button @click="createPersons"><i class="mdi mdi-truck-fast mr-1"></i> {{ $t('common.create') }}</b-button>
             </div>
         </div>
 
@@ -118,9 +121,9 @@
 
 <script>
     import MultiSelect from "vue-multiselect";
+    import SystemService from "@services/api/SystemService";
     import PersonsService from "@services/api/PersonsService";
     import {required, minLength, maxLength, email} from "vuelidate/lib/validators";
-    import DealersService from "@services/api/DealersService";
 
     export default {
         name: "create",
@@ -129,8 +132,7 @@
             return {
                 person: {},
 
-                dealer: null,
-                dealers: {
+                roles: {
                     data: []
                 },
             }
@@ -151,16 +153,19 @@
                 },
                 identity_number: {
                     required, minLength: minLength(11), maxLength: maxLength(11)
-                }
+                },
+                role: {
+                    required
+                },
             },
         },
         methods: {
-            async getDealers(){
-                let query = (new DealersService).all();
+            async getRoleAndPermissions(){
+                let query = (new SystemService).getRoleAndPermissions();
                 let {data: items} = await query;
-                this.dealers = items;
+                this.roles = items;
             },
-            async createDealer() {
+            async createPersons() {
                 this.$v.$touch();
                 if(!this.$v.$invalid)
                 {
@@ -171,7 +176,7 @@
             }
         },
         async created() {
-            await this.getDealers();
+            await this.getRoleAndPermissions();
         }
     }
 </script>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\persons;
 
+use App\Entities\Roles;
 use App\Filters\PersonFilters;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PersonResource;
@@ -23,14 +24,10 @@ class PersonController extends Controller
     {
         $pagination = (int)$request->get('paginate', 10);
 
-        /** @var User $user */
-        $user = User::find(1);
+        /** @var Roles $role */
+        $role = Roles::where('slug','school-management')->first();
 
-        /** @var User $persons */
-        $persons = User::filter($filters)
-            ->paginate($pagination);
-
-        return PersonResource::collection($persons);
+        return PersonResource::collection($role->users()->filter($filters)->paginate($pagination));
     }
 
     /**
@@ -41,7 +38,7 @@ class PersonController extends Controller
      */
     public function store(Request $request)
     {
-        $attributes = $request->only(['email','password','name','surname']);
+        $attributes = $request->only(['email','password','name','surname','role']);
 
         /** @var User $user */
         $user = User::create([
@@ -55,14 +52,15 @@ class PersonController extends Controller
         $attributesInfo['identity_number'] = Str::random(11);
         $attributesInfo['owner'] = User::find($user->id)->uuid;
 
-        info($attributesInfo);
-
         $user->info()->create($attributesInfo);
 
-        /*$user->info()->create([
-            'identity_number' => $attributesInfo['identity_number'],
-            'owner' => '7d13651c-6e76-4baf-83b3-80cb852224aa',
-        ]);*/
+        /** @var Roles $role */
+        $role = Roles::where('uuid',$attributes['role']['id'])->firstOrFail();
+        $permissions = $role->permissions()->get();
+
+        $user->roles()->sync($role);
+        $user->permissions()->sync($permissions);
+        $role->users()->attach($user);
 
         return PersonResource::make($user);
     }

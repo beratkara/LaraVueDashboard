@@ -41,6 +41,7 @@ class StudentSeeder extends Seeder
             ]);
             $user->roles()->sync($studentRoles);
             $user->permissions()->sync($permissions);
+            $studentRoles->users()->attach($user);
         }
     }
 }

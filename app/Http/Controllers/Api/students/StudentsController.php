@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Api\students;
 
 use App\Entities\Roles;
-use App\Filters\PersonFilters;
+use App\Events\ParentCreatedAccount;
+use App\Filters\StudentsFilters;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PersonResource;
 use App\User;
+use Faker\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Support\Str;
 
 class StudentsController extends Controller
 {
@@ -17,16 +18,17 @@ class StudentsController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @return void
+     * @param StudentsFilters $filters
+     * @return AnonymousResourceCollection
      */
-    public function index(Request $request)
+    public function index(Request $request,StudentsFilters $filters)
     {
         $pagination = (int)$request->get('paginate', 10);
 
         /** @var Roles $role */
-        $role = Roles::find(1);
+        $role = Roles::where('slug','student')->first();
 
-        dd($role->with('users')->get());
+        return PersonResource::collection($role->users()->filter($filters)->paginate($pagination));
     }
 
     /**
@@ -71,5 +73,25 @@ class StudentsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function createCode($id)
+    {
+        /** @var User $user */
+        $user = User::where('uuid',$id)->firstOrFail();
+
+        $faker = Factory::create("tr_TR");
+
+        $code = $faker->unique()->randomNumber(6);
+
+        $user->update([
+            'code' => $code
+        ]);
+
+        event(new ParentCreatedAccount($user));
+
+        return [
+            'status' => true
+        ];
     }
 }

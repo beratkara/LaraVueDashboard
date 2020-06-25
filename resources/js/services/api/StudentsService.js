@@ -7,4 +7,9 @@ export default class extends Query {
         this.resource = '/auth/students';
     }
 
+    createCode({id}) {
+        let resource = this.resource + '/createCode';
+        return axios.get(`${resource}/${id}`);
+    }
+
 }

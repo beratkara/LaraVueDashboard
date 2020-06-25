@@ -15,6 +15,7 @@ class CreatePermissionTable extends Migration
     {
         Schema::create('permissions', function (Blueprint $table) {
             $table->increments('id');
+            $table->uuid('uuid')->unique()->default(DB::raw('gen_random_uuid()'));
             $table->string('name');
             $table->string('slug');
             $table->timestamps();
@@ -23,6 +24,7 @@ class CreatePermissionTable extends Migration
 
         Schema::create('roles', function (Blueprint $table) {
             $table->increments('id');
+            $table->uuid('uuid')->unique()->default(DB::raw('gen_random_uuid()'));
             $table->string('name');
             $table->string('slug');
             $table->timestamps();

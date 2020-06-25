@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h4 class="card-title">{{ $t('menu.dealers') }}</h4>
+        <h4 class="card-title">{{ $t('menu.persons') }}</h4>
         <p class="card-title-desc">
             Create responsive tables by wrapping any
             <code>.table</code> in
@@ -105,7 +105,13 @@
             headers () {
                 return [
                     { key: 'name', label: this.$t('person.name'), sortable: true },
-                    { key: 'owner', label: this.$t('person.owner'), sortable: true },
+                    { key: 'surname', label: this.$t('person.surname'), sortable: true },
+                    { key: 'email', label: this.$t('person.email'), sortable: true },
+                    { key: 'info.identity_number', label: this.$t('person.identity_number'), sortable: false },
+                    { key: 'info.age', label: this.$t('person.age'), sortable: false },
+                    { key: 'info.gender', label: this.$t('person.gender'), sortable: false },
+                    { key: 'info.birth_place', label: this.$t('person.birth_place'), sortable: false },
+                    { key: 'info.birth_date', label: this.$t('person.birth_date'), sortable: false },
                 ]
             },
             loadingMessage () {

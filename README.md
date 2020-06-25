@@ -25,6 +25,11 @@ CREATE EXTENSION pgcrypto;
 php artisan migrate:fresh --seed
 ````
 
+### Kayıt Olan Kullanıcılara Otomatik Mail Gitmesi İçin Çalıştırılcak
+````
+php artisan queue:listen
+````
+
 ### Frontend Derlenmesi
 ````
 npm run watch

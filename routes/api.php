@@ -39,10 +39,13 @@ Route::prefix('auth')
             Route::namespace('students')->group(function (){
                 Route::get('students', 'StudentsController@index');
                 Route::post('students', 'StudentsController@store');
+                Route::get('students/createCode/{id}', 'StudentsController@createCode');
+            });
+
+            Route::namespace('system')->group(function (){
+                Route::get('system/getRoleAndPermissions', 'SystemController@getRoleAndPermissions');
             });
 
         });
-
-
 
     });

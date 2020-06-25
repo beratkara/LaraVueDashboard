@@ -6,6 +6,7 @@ use App\Entities\Permissions;
 use App\Entities\PersonInfo;
 use App\Entities\Roles;
 use App\Filters\Filterable;
+use App\Mail\SendParentMail;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -25,6 +26,7 @@ class User extends Authenticatable implements JWTSubject
         'password',
         'name',
         'surname',
+        'code',
     ];
 
     /**
@@ -43,6 +45,10 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => SendParentMail::class,
     ];
 
     public function info() {

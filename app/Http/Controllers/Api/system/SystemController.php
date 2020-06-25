@@ -1,43 +1,35 @@
 <?php
 
-namespace App\Http\Controllers\Api\users;
+namespace App\Http\Controllers\Api\system;
 
-use App\Filters\UsersFilters;
+use App\Entities\Roles;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UsersResource;
-use App\User;
+use App\Http\Resources\RolesResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 
-class UsersController extends Controller
+class SystemController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @param UsersFilters $filters
-     * @return AnonymousResourceCollection
+     * @return void
      */
-    public function index(Request $request, UsersFilters $filters)
+    public function index(Request $request)
     {
-        $pagination = (int)$request->get('paginate', 10);
 
-        $dealers = User::filter($filters)
-            ->paginate($pagination);
-
-        return UsersResource::collection($dealers);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return void
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -66,11 +58,19 @@ class UsersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
-     * @return void
+     * @param  int  $id
+     * @return Response
      */
     public function destroy($id)
     {
         //
+    }
+
+    public function getRoleAndPermissions()
+    {
+        /** @var Roles $roles */
+        $roles = Roles::with('permissions')->get();
+
+        return RolesResource::collection($roles);
     }
 }

@@ -1,5 +1,4 @@
 export default {
-    create: 'Personel Oluştur',
     name: 'Adı',
     surname: 'Soyadı',
     email: 'E-Mail',
@@ -10,4 +9,15 @@ export default {
     birth_date: 'Doğum Tarihi',
     gender: 'Cinsiyet',
     age: 'Yaş',
+    code: 'Doğrulama Kodu',
+    roles: 'Rol',
+    permissions: 'Yetki',
+
+    student: {
+        create: 'Öğrenci Oluştur',
+    },
+
+    personal: {
+        create: 'Personel Oluştur',
+    },
 }
