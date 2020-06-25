@@ -62,7 +62,7 @@
 </template>
 
 <script>
-    import PersonsService from "@services/api/PersonsService";
+    import StudentsService from "@services/api/StudentsService";
 
     export default {
         name: "show",
@@ -116,7 +116,7 @@
             async list({page = 1, perPage = 10, orderBy = 'id', sortedBy = 'desc'}) {
                 this.loading = true;
                 let includes = ['info'];
-                let query = (new PersonsService)
+                let query = (new StudentsService)
                     .paginate(page, perPage)
                     .filter(this.search)
                     .sort(orderBy, sortedBy)

@@ -19,8 +19,7 @@ class SettingsResource extends JsonResource
             'name' => $this->name,
             'surname' => $this->surname,
             'info' => PersonInfoResource::make($this->info),
-            'permissions' => PermissionsResource::collection($this->whenLoaded('permissions')),
-            'roles' => RolesResource::collection($this->whenLoaded('roles')),
+            'has_role_permissions' => RolesResource::collection($this->rolesAndPermissions),
         ];
     }
 }

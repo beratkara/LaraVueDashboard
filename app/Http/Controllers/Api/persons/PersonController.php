@@ -23,6 +23,9 @@ class PersonController extends Controller
     {
         $pagination = (int)$request->get('paginate', 10);
 
+        /** @var User $user */
+        $user = User::find(1);
+
         /** @var User $persons */
         $persons = User::filter($filters)
             ->paginate($pagination);

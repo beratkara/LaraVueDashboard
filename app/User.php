@@ -71,6 +71,11 @@ class User extends Authenticatable implements JWTSubject
         );
     }
 
+    public function rolesAndPermissions(): MorphToMany
+    {
+        return $this->roles()->with('permissions');
+    }
+
     public function getJWTIdentifier()
     {
         return $this->getKey();

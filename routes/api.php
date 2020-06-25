@@ -26,11 +26,6 @@ Route::prefix('auth')
 
             Route::post('logout', 'AuthController@logout');
 
-            Route::namespace('dealers')->group(function (){
-                Route::get('dealers', 'DealersController@index');
-                Route::post('dealers', 'DealersController@store');
-            });
-
             Route::namespace('users')->group(function (){
                 Route::get('users', 'UsersController@index');
                 Route::get('users/settings', 'SettingsController@index');
@@ -39,6 +34,11 @@ Route::prefix('auth')
             Route::namespace('persons')->group(function (){
                 Route::get('persons', 'PersonController@index');
                 Route::post('persons', 'PersonController@store');
+            });
+
+            Route::namespace('students')->group(function (){
+                Route::get('students', 'StudentsController@index');
+                Route::post('students', 'StudentsController@store');
             });
 
         });

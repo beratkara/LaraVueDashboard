@@ -8,7 +8,7 @@ const config = {
     router: router,
     tokenDefaultName: 'dashboard_session',
     tokenStore: ['localStorage'],
-    authRedirect: { name: 'login' },
+    authRedirect: {name: 'login'},
     registerData: {url: "auth/register", method: 'POST', redirect: '/login'},
     loginData: {url: "auth/login", method: 'POST', redirect: '/dashboard', fetchUser: true},
     logoutData: {url: "auth/logout", method: 'POST', redirect: '/login', makeRequest: true},
@@ -16,7 +16,13 @@ const config = {
     refreshData: {url: "auth/refresh", method: 'GET', enabled: true, interval: 30},
     rolesKey: 'permissions',
     parseUserData: (data) => {
-        data['permissions'] = data.data.permissions.map((permission) => permission.slug);
+        data['fullname'] = data.data.name + " " + data.data.surname;
+        data['roles'] = data.data.has_role_permissions.map((roles) => roles.slug);
+        data['permissions'] = data.data.has_role_permissions.map(
+            (items) => items.permissions.map(
+                (permissions) => permissions.slug
+            )
+        ).values().next().value;
         return data;
     }
 };
