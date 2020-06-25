@@ -43,15 +43,6 @@
                         <strong>{{ loadingMessage + '...' }}</strong>
                     </div>
                 </template>
-                <template v-slot:cell(owner)="{ item }">
-                    {{ item.name }}
-                </template>
-                <template v-slot:cell(owner)="{ item }" >
-                    <template v-if="item.hasOwnProperty('owner')" v-for="(owners, index) in item.owner">
-                        <b-link :href="owners.uuid">{{ owners.name }}</b-link>
-                    </template>
-                </template>
-
             </b-table>
         </div>
         <div class="row">
@@ -104,8 +95,14 @@
         computed: {
             headers () {
                 return [
+                    { key: 'info.identity_number', label: this.$t('person.identity_number'), sortable: true },
                     { key: 'name', label: this.$t('person.name'), sortable: true },
-                    { key: 'owner', label: this.$t('person.owner'), sortable: true },
+                    { key: 'surname', label: this.$t('person.surname'), sortable: true },
+                    { key: 'parents', label: this.$t('person.parents'), sortable: false },
+                    { key: 'info.age', label: this.$t('person.age'), sortable: false },
+                    { key: 'info.gender', label: this.$t('person.gender'), sortable: false },
+                    { key: 'info.birth_place', label: this.$t('person.birth_place'), sortable: false },
+                    { key: 'info.birth_date', label: this.$t('person.birth_date'), sortable: false },
                 ]
             },
             loadingMessage () {

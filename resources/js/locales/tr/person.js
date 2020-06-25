@@ -5,5 +5,9 @@ export default {
     email: 'E-Mail',
     password: 'Şifre',
     identity_number: 'Kimlik Numarası',
-    owner: 'Yöneticisi',
+    parents: 'Veli',
+    birth_place: 'Doğum Yeri',
+    birth_date: 'Doğum Tarihi',
+    gender: 'Cinsiyet',
+    age: 'Yaş',
 }

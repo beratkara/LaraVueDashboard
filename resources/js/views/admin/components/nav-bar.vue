@@ -63,7 +63,7 @@
               src="/images/users/avatar-1.jpg"
               alt="Header Avatar"
             />
-            <span class="d-none d-xl-inline-block ml-1">Henry</span>
+            <span class="d-none d-xl-inline-block ml-1">{{ username }}</span>
             <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
           </template>
           <!-- item-->
@@ -96,6 +96,7 @@
             return {
                 currentLocales: null,
                 availableLocales: null,
+                username: null,
             }
         },
         methods: {
@@ -157,6 +158,7 @@
         created() {
             this.currentLocales = this.$i18n.locale;
             this.availableLocales = this.$i18n.availableLocales;
+            this.username = this.$auth.user().data.name + " " +this.$auth.user().data.surname;
         }
     };
 </script>

@@ -16,6 +16,7 @@ class PersonFilters extends QueryFilter
     ];
 
     protected $searches = [
-        'name' => 'ilike'
+        'name' => 'ilike',
+        'surname' => 'ilike',
     ];
 }
