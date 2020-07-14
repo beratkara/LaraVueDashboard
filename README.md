@@ -7,6 +7,8 @@ cp .env.example .env
 
 composer install
 
+npm cache clean --force
+
 npm install
 
 php artisan key:generate
